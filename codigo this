@@ -1,0 +1,25 @@
+using System;
+class nombre
+{
+	string nom;
+	public nombre()
+	{
+		
+	}
+	public nombre(string nom)
+	{
+		this.nom = nom;
+	}
+	public override string ToString ()
+	{
+		return string.Format (nom);
+	}
+}
+	class MainClass
+	{
+		public static void Main()
+		{
+		nombre n1 = new nombre ("Luis");
+		Console.WriteLine(n1);
+		}
+	}
