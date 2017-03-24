@@ -1,0 +1,113 @@
+using System;
+using System.Collections.Generic;
+
+class Dado
+{
+	private static Random Aleatorio = new Random();
+	private int numcaras;
+	private int valor;
+	private string [] colores = new string[3] {"azul","rojo","verde"};
+	private int color = -1;
+
+	public Dado()
+	{
+		numcaras = 6;
+	}
+
+	public Dado(int color)
+	{
+		numcaras = 6;
+		this.color = color;
+	}
+
+	public Dado(int numcaras,int color)
+	{
+		this.numcaras = numcaras;
+		this.color = color;
+	}
+
+	public int aleatorio()
+	{
+		valor = Aleatorio.Next(1,numcaras+1);
+		return valor;
+	}
+
+	public static bool operator< (Dado d1,Dado d2)
+	{
+		return d1.valor < d2.valor;
+	}
+
+	public static bool operator >(Dado d1, Dado d2)
+	{
+		return d1.valor > d2.valor;
+	}
+
+	public static bool operator ==(Dado d1,Dado d2)
+	{
+		return d1.valor == d2.valor;
+	}
+
+	public static bool operator !=(Dado d1,Dado d2)
+	{
+		return d1.valor != d2.valor;
+	}
+
+	public override string ToString()
+	{
+
+		return  Convert.ToString(valor);
+	}     
+
+	public string get_color(int color)
+	{
+		return colores[color];
+	}
+	public string get_dado(int color)
+	{
+		return string.Format ("Dado {0}: {1}, color:{2}",color+1,valor ,colores[color]);
+	}
+
+
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		Console.ForegroundColor = ConsoleColor.Green;
+		Console.Title = "Dados";
+
+		Dado d1 = new Dado(0);
+		Dado d2 = new Dado(1);
+		Dado d3 = new Dado(2);
+
+		d1.aleatorio ();
+		d2.aleatorio ();
+		d3.aleatorio ();
+
+		Console.WriteLine (d1.get_dado (0));
+		Console.WriteLine (d2.get_dado (1));
+		Console.WriteLine (d3.get_dado (2));
+
+		if (d1 > d2 && d1 > d3) {
+			Console.WriteLine ("dado 1 es el mayor, su valor es:" + d1 + " de color:"+ d1.get_color(0));
+		} else if (d2 > d3 && d2 > d1) {
+			Console.WriteLine ("dado 2 es el mayor, su valor es:" + d2 + " de color:"+ d2.get_color(1));
+		} else if (d3 > d1 && d3 > d2) {
+			Console.WriteLine ("dado 3 es el mayor, su valor es:" + d3 + " de color:"+ d3.get_color(2));
+		}
+		Console.WriteLine ();
+		if (d1 == d2 && d1 != d3) {
+			Console.WriteLine ("dado 1 y dado 2 son iguales, su valor es:" + d1 + " de colores:" +d1.get_color(0) + " y " + d2.get_color(1) );
+		} else if (d1 == d3) {
+			Console.WriteLine ("dado 1 y dado 2 son iguales, su valor es:" + d1 + " de colores:" +d1.get_color(0) + " y " + d2.get_color(2));
+		} else if (d2 == d3) {
+			Console.WriteLine ("dado 2 y dado 3 son iguales, su valor es:" + d2 + " de colores:" +d1.get_color(1) + " y " + d2.get_color(2));
+		} else if (d1==d2 && d2==d3)
+		{
+			Console.WriteLine ("Los tres son iguales");
+		}
+		Console.ReadLine();
+
+	}
+}
